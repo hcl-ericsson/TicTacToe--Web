@@ -11,9 +11,9 @@ let xScore = 0;
 let oScore = 0;
 
 const winningCombos = [
-  [0,1,2], [3,4,5], [6,7,8],
-  [0,3,6], [1,4,7], [2,5,8],
-  [0,4,8], [2,4,6]
+  [0,1,2],[3,4,5],[6,7,8],
+  [0,3,6],[1,4,7],[2,5,8],
+  [0,4,8],[2,4,6]
 ];
 
 cells.forEach(cell => cell.addEventListener('click', handleClick));
@@ -22,7 +22,7 @@ restartBtn.addEventListener('click', resetBoard);
 function handleClick(e) {
   const index = e.target.dataset.index;
 
-  if (board[index] !== '' || !gameActive) return;
+  if (board[index] || !gameActive) return;
 
   board[index] = currentPlayer;
   e.target.textContent = currentPlayer;
@@ -38,13 +38,9 @@ function handleClick(e) {
 
 function checkWinner() {
   for (let combo of winningCombos) {
-    const [a, b, c] = combo;
+    const [a,b,c] = combo;
 
-    if (
-      board[a] &&
-      board[a] === board[b] &&
-      board[a] === board[c]
-    ) {
+    if (board[a] && board[a] === board[b] && board[a] === board[c]) {
       gameActive = false;
 
       cells[a].classList.add('win');
@@ -60,6 +56,8 @@ function checkWinner() {
         oScore++;
         oScoreEl.textContent = oScore;
       }
+
+      celebrate();
 
       return;
     }
@@ -79,6 +77,36 @@ function resetBoard() {
 
   cells.forEach(cell => {
     cell.textContent = '';
-    cell.classList.remove('x', 'o', 'win');
+    cell.classList.remove('x','o','win');
   });
+}
+
+function celebrate() {
+  for (let i = 0; i < 80; i++) {
+    const confetti = document.createElement('div');
+
+    confetti.style.position = 'fixed';
+    confetti.style.left = Math.random() * window.innerWidth + 'px';
+    confetti.style.top = '-20px';
+    confetti.style.width = '10px';
+    confetti.style.height = '10px';
+    confetti.style.background = `hsl(${Math.random()*360},100%,60%)`;
+    confetti.style.borderRadius = '50%';
+    confetti.style.pointerEvents = 'none';
+    confetti.style.zIndex = 9999;
+
+    document.body.appendChild(confetti);
+
+    const duration = 2000 + Math.random() * 2000;
+
+    confetti.animate(
+      [
+        { transform: 'translateY(0px) rotate(0deg)', opacity: 1 },
+        { transform: `translateY(${window.innerHeight + 100}px) rotate(720deg)`, opacity: 0 }
+      ],
+      { duration, easing: 'ease-out' }
+    );
+
+    setTimeout(() => confetti.remove(), duration);
+  }
 }
