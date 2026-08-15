@@ -1,0 +1,20 @@
+# Tic-Tac-Toe Web
+
+A browser-based Tic-Tac-Toe game built using HTML, CSS, and JavaScript.
+
+## Live Demo
+
+https://hcl-ericsson.github.io/TicTacToe-Web/
+
+## Features
+
+* Two-player gameplay
+* Win and draw detection
+* Scoreboard
+* Restart game button
+
+## Technologies Used
+
+* HTML
+* CSS
+* JavaScript
