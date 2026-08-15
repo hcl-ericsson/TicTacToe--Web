@@ -5,27 +5,36 @@
 }
 
 body {
-  background: linear-gradient(135deg, #0f172a, #1e293b);
-  font-family: Arial, sans-serif;
+  background: radial-gradient(circle at top, #1e3a8a, #0f172a 70%);
+  font-family: 'Segoe UI', sans-serif;
   color: white;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
+  overflow: hidden;
 }
 
 .container {
   text-align: center;
+  background: rgba(255,255,255,0.08);
+  padding: 30px;
+  border-radius: 25px;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 0 40px rgba(0,255,255,0.15);
 }
 
 h1 {
   font-size: 3rem;
+  color: #67e8f9;
+  text-shadow: 0 0 10px #22d3ee, 0 0 20px #06b6d4;
   margin-bottom: 10px;
 }
 
 #status {
-  margin-bottom: 20px;
   font-size: 1.2rem;
+  margin-bottom: 20px;
+  animation: pulseText 1.5s infinite;
 }
 
 .scoreboard {
@@ -47,44 +56,82 @@ h1 {
 .cell {
   width: 120px;
   height: 120px;
-  background: #1e293b;
-  border-radius: 18px;
+  background: rgba(255,255,255,0.08);
+  border: 2px solid rgba(255,255,255,0.15);
+  border-radius: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 3.5rem;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.25s ease;
 }
 
 .cell:hover {
-  transform: scale(1.05);
-  background: #334155;
+  transform: scale(1.08);
+  box-shadow: 0 0 20px rgba(0,255,255,0.35);
 }
 
 .cell.x {
   color: #38bdf8;
+  text-shadow: 0 0 10px #38bdf8, 0 0 20px #0ea5e9;
+  animation: pop 0.2s ease;
 }
 
 .cell.o {
   color: #fb7185;
+  text-shadow: 0 0 10px #fb7185, 0 0 20px #f43f5e;
+  animation: pop 0.2s ease;
 }
 
 .cell.win {
   background: #22c55e;
   color: white;
+  box-shadow: 0 0 20px #22c55e, 0 0 40px #16a34a;
+  animation: winnerGlow 0.8s infinite alternate;
 }
 
 button {
   padding: 14px 28px;
   border: none;
-  border-radius: 10px;
-  background: #2563eb;
+  border-radius: 12px;
+  background: linear-gradient(90deg, #2563eb, #06b6d4);
   color: white;
   font-size: 1rem;
   cursor: pointer;
+  transition: all 0.25s ease;
 }
 
 button:hover {
-  background: #1d4ed8;
+  transform: scale(1.05);
+  box-shadow: 0 0 20px #06b6d4;
+}
+
+@keyframes pop {
+  from {
+    transform: scale(0.4);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes winnerGlow {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.08);
+  }
+}
+
+@keyframes pulseText {
+  0%,100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
 }
